@@ -9,7 +9,19 @@ module.exports = {
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
-      primary: "#000000",
+      colors: {
+        primary: "#8CB1E5", // бирюзовый
+        secondary: "#8b5cf6", // фиолетовый
+        accent: "#10b981", // зеленый
+        background: "#f8fafc",
+        card: "#ffffff",
+        text: "#1e293b",
+        border: "#e2e8f0",
+      },
+      fontFamily: {
+        LoraMediumItalick: ["LoraMediumItalic", "monospace"],
+        RobotoBlack: ["RobotoBlack", "monospace"],
+      },
     },
   },
   plugins: [],
