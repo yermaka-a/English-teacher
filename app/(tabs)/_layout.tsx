@@ -75,7 +75,6 @@ const TabsLayout = () => {
       </Tabs>
       <CreateModal
         modalState={modalVisible}
-        onRequestClose={(e) => setModalVisible(false)}
         onClose={() => setModalVisible(false)}
       />
     </>
