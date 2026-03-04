@@ -1,6 +1,10 @@
+import { NAV_THEME } from "@/lib/theme";
+import { ThemeProvider } from "@react-navigation/native";
+import { PortalHost } from "@rn-primitives/portal";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
+import React from "react";
+import { ActivityIndicator, useColorScheme, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "./global.css";
@@ -9,14 +13,19 @@ export default function RootLayout() {
     LoraMediumItalic: require("@/assets/fonts/Lora/static/Lora-MediumItalic.ttf"),
     Roboto: require("@/assets/fonts/Roboto/static/Roboto-Black.ttf"),
   });
-  if (fontsLoaded) {
+
+  const colorScheme = useColorScheme();
+  if (fontsLoaded && colorScheme) {
     return (
       <GestureHandlerRootView>
-        <SafeAreaProvider>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          </Stack>
-        </SafeAreaProvider>
+        <ThemeProvider value={NAV_THEME[colorScheme]}>
+          <SafeAreaProvider>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            </Stack>
+            <PortalHost />
+          </SafeAreaProvider>
+        </ThemeProvider>
       </GestureHandlerRootView>
     );
   } else if (LoadingError) {
