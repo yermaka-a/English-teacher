@@ -1,4 +1,4 @@
-import { cn } from "@/helpers";
+import { cn } from "@/lib/utils";
 import React from "react";
 import { View } from "react-native";
 
