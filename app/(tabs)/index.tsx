@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 export default function Index() {
   return (
-    <SafeAreaView edges={["top"]}>
+    <SafeAreaView>
       <Header title={TABS_TITLE} />
       <MenuCard
         title="MenuCard"
