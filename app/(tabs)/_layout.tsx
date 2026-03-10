@@ -27,7 +27,7 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="mock_create"
+          name="mock-create"
           options={{
             title: TABS_NAMES.create,
             headerShown: false,
