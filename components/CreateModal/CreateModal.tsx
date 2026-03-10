@@ -1,5 +1,6 @@
-import CreateItem from "@/components/CreateModal/CreateItem";
+import { CREATE_PAGES } from "@/constants";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React, { useEffect, useRef, type ReactNode } from "react";
 import { Text, TouchableWithoutFeedback, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
@@ -10,6 +11,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import CreateItem from "./CreateItem";
 
 import { scheduleOnRN } from "react-native-worklets";
 
@@ -17,7 +19,7 @@ interface CreateModalOptions {
   modalState: boolean;
   onClose: (value: boolean) => void;
 }
-type Topics = "CreateModule" | "CreateFolder";
+type Topics = "createModule" | "createDirectory";
 
 interface CreateItemProps {
   topicKey: Topics;
@@ -29,15 +31,15 @@ const CreateModal = ({ modalState, onClose }: CreateModalOptions) => {
   const overlayOpacity = useSharedValue(0);
   const slideOffset = useSharedValue(300);
   const translationY = useSharedValue(0); // для отслеживания смещения в жесте
-
+  const router = useRouter();
   const topics = useRef<CreateItemProps[]>([
     {
-      topicKey: "CreateModule",
+      topicKey: "createModule",
       topic: "Создать модуль",
       renderIcon: () => <Ionicons name="card-outline" size={32} />,
     },
     {
-      topicKey: "CreateFolder",
+      topicKey: "createDirectory",
       topic: "Создать папку",
       renderIcon: () => <Ionicons name="folder-open-outline" size={32} />,
     },
@@ -92,7 +94,6 @@ const CreateModal = ({ modalState, onClose }: CreateModalOptions) => {
         slideOffset.value = withSpring(0, { stiffness: 150 });
       }
     });
-
   if (!modalState) return null;
 
   return (
@@ -114,7 +115,10 @@ const CreateModal = ({ modalState, onClose }: CreateModalOptions) => {
             <View className="flex gap-4">
               <View className="w-10 h-1 bg-slate-400 rounded-full self-center mb-4" />
               {topics.current.map((v) => (
-                <CreateItem key={v.topicKey}>
+                <CreateItem
+                  key={v.topicKey}
+                  onPress={() => router.push(CREATE_PAGES[v.topicKey])}
+                >
                   {v.renderIcon()}
                   <Text className="text-[16px] font-LoraMediumItalick">
                     {v.topic}
